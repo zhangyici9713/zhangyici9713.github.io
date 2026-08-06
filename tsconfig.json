@@ -36,6 +36,7 @@
     "db",
     "examples",
     "build",
-    "drizzle.config.ts"
+    "drizzle.config.ts",
+    "vite.config.ts"
   ]
 }
