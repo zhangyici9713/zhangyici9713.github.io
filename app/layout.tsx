@@ -3,21 +3,21 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://zhangyici9713.github.io"),
-  title: "Personal Cosmos — An Interactive Mind Atlas",
-  description: "A freely navigable particle brain and deep-space atlas with many entrances into research, music, art, projects and memory.",
+  title: "Personal Atlas — A Continuous Mind & Cosmos",
+  description: "A continuous three-dimensional personal atlas connecting research, products, music, art, writing, photography, and memory.",
   openGraph: {
-    title: "Personal Cosmos — A Mind With Many Entrances",
-    description: "Fly through a particle brain, many galaxies and five explorable inner worlds.",
+    title: "Personal Atlas — A Continuous Mind & Cosmos",
+    description: "Travel through a living neural landscape or a field of galaxies, discovering the work and memories suspended within it.",
     url: "/",
-    siteName: "Personal Cosmos",
-    images: [{ url: "/og.png", width: 1200, height: 630, alt: "A particle brain flowing into a field of many galaxies" }],
+    siteName: "Personal Atlas",
+    images: [{ url: "/og-v2.png", width: 1728, height: 910, alt: "A continuous personal atlas between a neural landscape and deep space" }],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Personal Cosmos — A Mind With Many Entrances",
-    description: "Fly through a particle brain, many galaxies and five explorable inner worlds.",
-    images: ["/og.png"],
+    title: "Personal Atlas — A Continuous Mind & Cosmos",
+    description: "A continuous 3D atlas connecting research, products, music, art, writing, photography, and memory.",
+    images: ["/og-v2.png"],
   },
 };
 

@@ -4,39 +4,44 @@ import test from "node:test";
 
 const root = new URL("../", import.meta.url);
 
-test("exports the immersive mind atlas as a static page", async () => {
+test("exports the continuous personal atlas as a static page", async () => {
   const html = await readFile(new URL("out/index.html", root), "utf8");
 
-  assert.match(html, /<title>Personal Cosmos — An Interactive Mind Atlas<\/title>/i);
-  assert.match(html, /class="cosmos-experience mode-mind view-atlas"/);
+  assert.match(html, /<title>Personal Atlas — A Continuous Mind &amp; Cosmos<\/title>/i);
+  assert.match(html, /class="site-root mode-mind surface-atlas"/);
   assert.match(html, /TIME COORDINATE/);
   assert.match(html, /MIND/);
   assert.match(html, /COSMOS/);
-  assert.doesNotMatch(html, /cluster-nav|detail-panel|entry-screen/);
+  assert.match(html, /Open the standard profile page/);
+  assert.match(html, /CONTINUOUS ATLAS/);
+  assert.doesNotMatch(html, /Prototype Bay|view-atlas|entry-screen/);
 
-  await access(new URL("out/neural-nebula.webp", root));
-  await access(new URL("out/cosmos-deep-field.webp", root));
+  await access(new URL("out/og-v2.png", root));
   await access(new URL("out/icon.svg", root));
 });
 
-test("builds multiple explorable worlds with full orbit and flight controls", async () => {
-  const [source, world] = await Promise.all([
+test("builds one continuous world with free flight and landmark navigation", async () => {
+  const [source, world, profile] = await Promise.all([
     readFile(new URL("app/cosmos-experience.tsx", root), "utf8"),
     readFile(new URL("app/cosmos-world.ts", root), "utf8"),
+    readFile(new URL("app/profile-page.tsx", root), "utf8"),
   ]);
 
   assert.match(source, /new THREE\.WebGLRenderer/);
-  assert.match(source, /orbitYaw -=/);
-  assert.match(source, /flightPosition\.addScaledVector/);
+  assert.match(source, /yaw -=/);
+  assert.match(source, /camera\.position\.addScaledVector/);
+  assert.match(source, /navigateRef\.current/);
   assert.match(source, /addEventListener\("pointermove"/);
   assert.match(source, /addEventListener\("wheel"/);
-  assert.match(source, /cosmosTexture\.dispose\(\)/);
   assert.match(source, /renderer\.dispose\(\)/);
-  assert.match(world, /id: "visual"/);
-  assert.match(world, /id: "lab"/);
+  assert.match(world, /id: "papers"/);
+  assert.match(world, /id: "research"/);
   assert.match(world, /id: "music"/);
   assert.match(world, /id: "projects"/);
-  assert.match(world, /id: "archive"/);
-  assert.match(world, /createGallery/);
-  assert.match(world, /createLab/);
+  assert.match(world, /id: "photography"/);
+  assert.match(world, /createMindEnvironment/);
+  assert.match(world, /createCosmosEnvironment/);
+  assert.doesNotMatch(world, /roomShell|portalTo|Prototype Bay/);
+  assert.match(profile, /Selected Publications/);
+  assert.match(profile, /Products & Open Source/);
 });
