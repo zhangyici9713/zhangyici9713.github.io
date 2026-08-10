@@ -26,7 +26,7 @@ export default function CosmosExperience() {
   const discoveredRef = useRef(new Set<LandmarkId>());
 
   const [mode, setMode] = useState<Mode>("mind");
-  const [surface, setSurface] = useState<"atlas" | "profile">("atlas");
+  const [surface, setSurface] = useState<"atlas" | "profile">("profile");
   const [directoryOpen, setDirectoryOpen] = useState(false);
   const [discovered, setDiscovered] = useState<LandmarkId[]>([]);
   const [hovered, setHovered] = useState<LandmarkId | null>(null);
@@ -73,7 +73,7 @@ export default function CosmosExperience() {
     mount.appendChild(renderer.domElement);
 
     const glow = createGlowTexture();
-    const mindEnvironment = createMindEnvironment();
+    const mindEnvironment = createMindEnvironment(glow);
     const cosmosEnvironment = createCosmosEnvironment(glow);
     const landmarkWorld = createLandmarkWorld(glow);
     scene.add(mindEnvironment, cosmosEnvironment, landmarkWorld.root);
@@ -236,9 +236,11 @@ export default function CosmosExperience() {
       if (currentMode !== lastMode) {
         mindEnvironment.visible = currentMode === "mind";
         cosmosEnvironment.visible = currentMode === "cosmos";
-        scene.background = new THREE.Color(currentMode === "mind" ? 0x020c13 : 0x010107);
-        scene.fog = new THREE.FogExp2(currentMode === "mind" ? 0x061621 : 0x05020b, currentMode === "mind" ? 0.013 : 0.0085);
-        renderer.toneMappingExposure = currentMode === "mind" ? 1.25 : 1.12;
+        landmarkWorld.futureArtifacts.mind.visible = currentMode === "mind";
+        landmarkWorld.futureArtifacts.cosmos.visible = currentMode === "cosmos";
+        scene.background = new THREE.Color(currentMode === "mind" ? 0x06131c : 0x080510);
+        scene.fog = new THREE.FogExp2(currentMode === "mind" ? 0x102738 : 0x120a20, currentMode === "mind" ? 0.011 : 0.0075);
+        renderer.toneMappingExposure = currentMode === "mind" ? 1.34 : 1.2;
         lastMode = currentMode;
       }
 
@@ -273,7 +275,7 @@ export default function CosmosExperience() {
 
       camera.position.x = clamp(camera.position.x, -72, 72);
       camera.position.y = clamp(camera.position.y, -48, 48);
-      camera.position.z = clamp(camera.position.z, -270, 48);
+      camera.position.z = clamp(camera.position.z, -245, 48);
       cameraLight.position.copy(camera.position);
 
       let closestId: LandmarkId | null = null;
@@ -339,6 +341,8 @@ export default function CosmosExperience() {
   const hoverLandmark = hovered ? getLandmark(hovered) : null;
   const nearbyLandmark = nearby ? getLandmark(nearby) : null;
   const selectedIndex = selected ? LANDMARKS.findIndex((item) => item.id === selected) : -1;
+  const previousIndex = selectedIndex >= 0 ? (selectedIndex - 1 + LANDMARKS.length) % LANDMARKS.length : -1;
+  const nextIndex = selectedIndex >= 0 ? (selectedIndex + 1) % LANDMARKS.length : -1;
 
   const travelTo = (id: LandmarkId) => {
     setDirectoryOpen(false);
@@ -405,8 +409,8 @@ export default function CosmosExperience() {
             <h2>{selectedLandmark.title}</h2>
             <p>{selectedLandmark.description}</p>
             <div className="artifact-actions">
-              {selectedIndex > 0 && <button type="button" onClick={() => travelTo(LANDMARKS[selectedIndex - 1].id)}>← Previous place</button>}
-              {selectedIndex < LANDMARKS.length - 1 && <button type="button" onClick={() => travelTo(LANDMARKS[selectedIndex + 1].id)}>Next place →</button>}
+              <button type="button" onClick={() => travelTo(LANDMARKS[previousIndex].id)}>← Previous place</button>
+              <button type="button" onClick={() => travelTo(LANDMARKS[nextIndex].id)}>Next place →</button>
             </div>
           </article>
         )}

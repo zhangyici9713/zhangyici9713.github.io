@@ -8,7 +8,7 @@ test("exports the continuous personal atlas as a static page", async () => {
   const html = await readFile(new URL("out/index.html", root), "utf8");
 
   assert.match(html, /<title>Personal Atlas — A Continuous Mind &amp; Cosmos<\/title>/i);
-  assert.match(html, /class="site-root mode-mind surface-atlas"/);
+  assert.match(html, /class="site-root mode-mind surface-profile"/);
   assert.match(html, /TIME COORDINATE/);
   assert.match(html, /MIND/);
   assert.match(html, /COSMOS/);
@@ -41,6 +41,10 @@ test("builds one continuous world with free flight and landmark navigation", asy
   assert.match(world, /id: "photography"/);
   assert.match(world, /createMindEnvironment/);
   assert.match(world, /createCosmosEnvironment/);
+  assert.match(world, /function spaceStation/);
+  assert.match(world, /function sailboat/);
+  assert.match(world, /function corticalFold/);
+  assert.match(source, /\(selectedIndex \+ 1\) % LANDMARKS\.length/);
   assert.doesNotMatch(world, /roomShell|portalTo|Prototype Bay/);
   assert.match(profile, /Selected Publications/);
   assert.match(profile, /Products & Open Source/);

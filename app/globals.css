@@ -15,12 +15,12 @@ button, input { font: inherit; }
 button, a { color: inherit; }
 button { -webkit-tap-highlight-color: transparent; }
 
-.site-root, .atlas-surface { position: relative; width: 100vw; height: 100dvh; overflow: hidden; isolation: isolate; background: #010207; }
+.site-root, .atlas-surface { position: relative; width: 100vw; height: 100dvh; overflow: hidden; isolation: isolate; background: #06111a; }
 .cosmos-stage, .cosmos-stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
 .cosmos-stage canvas { display: block; cursor: grab; touch-action: none; }
 .cosmos-stage canvas:active { cursor: grabbing; }
-.world-vignette { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(circle at center, transparent 34%, rgba(0, 3, 8, .06) 58%, rgba(0, 2, 8, .7) 118%), linear-gradient(180deg, rgba(1, 7, 13, .42), transparent 25%, transparent 72%, rgba(1, 4, 10, .75)); }
-.mode-cosmos .world-vignette { background: radial-gradient(circle at center, transparent 30%, rgba(2, 0, 8, .05) 60%, rgba(0, 0, 5, .76) 120%), linear-gradient(180deg, rgba(3, 0, 10, .42), transparent 25%, transparent 74%, rgba(1, 0, 8, .78)); }
+.world-vignette { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(circle at center, transparent 28%, rgba(0, 12, 20, .025) 64%, rgba(0, 4, 10, .4) 120%), linear-gradient(180deg, rgba(3, 15, 24, .2), transparent 28%, transparent 75%, rgba(2, 8, 15, .46)); }
+.mode-cosmos .world-vignette { background: radial-gradient(circle at center, transparent 28%, rgba(8, 0, 18, .025) 65%, rgba(1, 0, 8, .45) 122%), linear-gradient(180deg, rgba(9, 2, 18, .22), transparent 27%, transparent 76%, rgba(3, 0, 10, .5)); }
 
 .atlas-header { position: absolute; z-index: 7; inset: 0 0 auto; display: flex; align-items: flex-start; justify-content: center; padding: 24px 30px; pointer-events: none; }
 .identity, .mode-control { pointer-events: auto; }
@@ -34,10 +34,12 @@ button { -webkit-tap-highlight-color: transparent; }
 .mode-control button.is-active { color: #fff; background: rgba(137, 224, 255, .14); box-shadow: inset 0 0 22px rgba(116, 218, 255, .12), 0 0 22px rgba(95, 211, 255, .05); }
 .mode-cosmos .mode-control button.is-active { background: rgba(205, 142, 255, .16); box-shadow: inset 0 0 22px rgba(200, 125, 255, .14); }
 
-.page-fold, .profile-fold { position: absolute; z-index: 12; top: 0; right: 0; width: 104px; height: 104px; padding: 0; border: 0; overflow: hidden; background: transparent; cursor: pointer; }
-.page-fold::before, .profile-fold::before { content: ""; position: absolute; inset: 0; background: linear-gradient(225deg, rgba(229, 244, 251, .95) 0 49.4%, rgba(3, 9, 16, .92) 50% 100%); clip-path: polygon(100% 0, 100% 100%, 0 0); filter: drop-shadow(-10px 12px 18px rgba(0, 0, 0, .3)); transition: transform 300ms ease; transform-origin: top right; }
-.page-fold:hover::before, .profile-fold:hover::before { transform: scale(1.1); }
-.page-fold span, .profile-fold span { position: absolute; z-index: 1; top: 25px; right: 8px; width: 63px; color: #0b151c; font: 800 9px/1 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .12em; transform: rotate(45deg); }
+.page-fold, .profile-fold { position: absolute; z-index: 12; top: 0; right: 0; width: 148px; height: 148px; padding: 0; border: 0; overflow: visible; background: transparent; cursor: pointer; perspective: 420px; }
+.page-fold::before, .profile-fold::before { content: ""; position: absolute; inset: 0; background: linear-gradient(225deg, rgba(14, 29, 42, .98) 0 45%, rgba(92, 119, 135, .9) 61%, transparent 62%); clip-path: polygon(100% 0, 100% 100%, 0 0); filter: drop-shadow(-17px 19px 20px rgba(0, 0, 0, .48)); transform-origin: top right; transition: transform 340ms cubic-bezier(.2, .8, .2, 1); }
+.page-fold::after, .profile-fold::after { content: ""; position: absolute; top: 0; right: 0; width: 128px; height: 128px; background: linear-gradient(225deg, #fbffff 0%, #e1eef2 47%, #a9bdc8 78%, #78909d 100%); clip-path: polygon(100% 0, 100% 88%, 12% 0); box-shadow: inset 16px -18px 26px rgba(53, 80, 94, .22); transform-origin: top right; transition: transform 340ms cubic-bezier(.2, .8, .2, 1); }
+.page-fold:hover::before, .profile-fold:hover::before { transform: scale(1.06); }
+.page-fold:hover::after, .profile-fold:hover::after { transform: rotateY(-8deg) rotateX(5deg) scale(1.07); }
+.page-fold span, .profile-fold span { position: absolute; z-index: 2; top: 35px; right: 13px; width: 82px; color: #0b151c; font-family: "Trebuchet MS", "Segoe UI", Helvetica, Arial, sans-serif; font-size: 11px; font-weight: 800; line-height: 1; letter-spacing: .1em; transform: rotate(45deg); }
 
 .directory-handle { position: absolute; z-index: 11; top: 50%; left: 0; display: flex; align-items: center; gap: 10px; height: 54px; padding: 0 13px 0 12px; border: 1px solid rgba(213, 237, 250, .23); border-left: 0; border-radius: 0 24px 24px 0; background: rgba(3, 10, 17, .58); backdrop-filter: blur(16px); transform: translateY(-50%); cursor: pointer; transition: left 400ms cubic-bezier(.2, .8, .2, 1), background 200ms ease; }
 .directory-handle.is-open { left: min(372px, calc(100vw - 55px)); }
@@ -94,7 +96,8 @@ button { -webkit-tap-highlight-color: transparent; }
 /* Standard profile surface */
 .profile-page { position: fixed; z-index: 40; inset: 0; overflow-y: auto; overscroll-behavior: contain; background: #f4f1e9; color: #171816; animation: profile-reveal 720ms cubic-bezier(.22, .82, .25, 1) both; clip-path: polygon(100% 0, 100% 0, 100% 0); }
 .profile-fold { position: fixed; z-index: 42; }
-.profile-fold::before { background: linear-gradient(225deg, #08131c 0 49.4%, #ded9cd 50% 100%); }
+.profile-fold::before { background: linear-gradient(225deg, #e3ddd1 0 45%, #8c8c84 61%, transparent 62%); }
+.profile-fold::after { background: linear-gradient(225deg, #13232d 0%, #0a151d 55%, #304753 100%); box-shadow: inset 16px -18px 28px rgba(101, 164, 187, .15); }
 .profile-fold span { color: #f4f1e9; }
 .profile-shell { width: min(960px, calc(100% - 64px)); margin: 0 auto; padding: 86px 0 70px; }
 .profile-header { display: grid; grid-template-columns: 245px 1fr; gap: 58px; align-items: center; padding-bottom: 58px; border-bottom: 1px solid #c9c4b9; }
@@ -147,8 +150,9 @@ button:focus-visible, input:focus-visible, a:focus-visible { outline: 2px solid 
   .identity-copy { display: none; }
   .mode-control { position: absolute; top: 16px; left: 50%; transform: translateX(-50%); }
   .mode-control button { min-width: 69px; padding: 10px 10px; font-size: 11px; }
-  .page-fold, .profile-fold { width: 82px; height: 82px; }
-  .page-fold span, .profile-fold span { top: 20px; right: 3px; font-size: 8px; }
+  .page-fold, .profile-fold { width: 104px; height: 104px; }
+  .page-fold::after, .profile-fold::after { width: 91px; height: 91px; }
+  .page-fold span, .profile-fold span { top: 25px; right: 4px; width: 67px; font-size: 9px; }
   .directory-handle { height: 48px; }
   .directory-handle span { display: none; }
   .atlas-directory { padding: 78px 22px 120px; }
